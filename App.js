@@ -15,7 +15,6 @@ import CustomTextInput from "./components/CustomTextInput";
 import StepByStepProgressBar from "./components/StepByStepProgressBar";
 
 export default function App() {
-  const width = useWindowDimensions().width;
   return (
     <View style={styles.container}>
       <View
