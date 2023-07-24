@@ -108,18 +108,21 @@ export default function SignUpP1({ data, setData }) {
           </Text>
         </View>
         <CustomTextInput
+          index={1}
           data={data}
           setData={setData}
           label={data.page1[1].label}
           placeholder={data.page1[1].placeholder}
         />
         <CustomTextInput
+          index={2}
           data={data}
           setData={setData}
           label={data.page1[2].label}
           placeholder={data.page1[2].placeholder}
         />
         <CustomTextInput
+          index={3}
           data={data}
           setData={setData}
           label={data.page1[3].label}

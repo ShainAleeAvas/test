@@ -8,12 +8,12 @@ export default function SignUpP2() {
   return (
     <View
       style={{
-        flex:1,
+        flex: 1,
         marginTop: 131,
         paddingLeft: 20,
         paddingRight: 15,
         marginRight: 5,
-        width:width
+        width: width,
       }}
     >
       <ScrollView>

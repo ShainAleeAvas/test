@@ -13,7 +13,7 @@ import {
 import { Ionicons, Entypo, FontAwesome5 } from "@expo/vector-icons";
 import CustomTextInput from "./components/CustomTextInput";
 import StepByStepProgressBar from "./components/StepByStepProgressBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignUpP1 from "./components/forms/SignUpP1";
 import SignUpP2 from "./components/forms/SignUpP2";
 
@@ -31,6 +31,13 @@ export default function App() {
       { label: "Back picture", value: "" },
     ],
   });
+
+  useEffect(() => {
+    setProgress(
+      (pagePercent / inputs.page1.length) *
+        inputs.page1.filter((e) => e.value !== "").length
+    );
+  }, [inputs]);
 
   return (
     <View style={styles.container}>
@@ -69,7 +76,7 @@ export default function App() {
         >
           <Ionicons name="arrow-back" size={25} color="black" />
         </TouchableOpacity>
-        <StepByStepProgressBar steps={3} />
+        <StepByStepProgressBar steps={3} percent={progress} />
       </View>
       <ScrollView horizontal scrollEnabled={false}>
         <SignUpP1 data={inputs} setData={setInputs} />
