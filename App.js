@@ -13,7 +13,7 @@ import {
 import { Ionicons, Entypo, FontAwesome5 } from "@expo/vector-icons";
 import CustomTextInput from "./components/CustomTextInput";
 import StepByStepProgressBar from "./components/StepByStepProgressBar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SignUpP1 from "./components/forms/SignUpP1";
 import SignUpP2 from "./components/forms/SignUpP2";
 import SignUpP3 from "./components/forms/SignUpP3";
@@ -22,6 +22,8 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(0);
   const [progress, setProgress] = useState(0);
   const pagePercent = 100 / 3; // 3 is number of pages
+
+  const ref = useRef(null);
   const [inputs, setInputs] = useState({
     page1: [
       { label: "Load your photo", value: "" },
@@ -108,7 +110,7 @@ export default function App() {
         </TouchableOpacity>
         <StepByStepProgressBar steps={3} percent={progress} />
       </View>
-      <ScrollView horizontal scrollEnabled={true}>
+      <ScrollView horizontal scrollEnabled={true} ref={ref}>
         <SignUpP1 data={inputs} setData={setInputs} />
         <SignUpP2 data={inputs} setData={setInputs} />
         <SignUpP3 data={inputs} setData={setInputs} />
@@ -121,6 +123,7 @@ export default function App() {
             borderRadius: 20,
             paddingVertical: 12,
           }}
+          onPress={() => ref.current?.scrollTo({ y: 400 })}
         >
           <Text style={{ textAlign: "center", color: "white" }}>Next</Text>
         </TouchableOpacity>
