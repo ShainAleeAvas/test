@@ -1,7 +1,7 @@
 import React from "react";
 import { View, useWindowDimensions } from "react-native";
 
-export default function StepByStepProgressBar({ steps = 3, percent = 50 }) {
+export default function StepByStepProgressBar({ steps = 0, percent = 0 }) {
   const width = useWindowDimensions().width;
   const fullsection = width / steps - 30;
   let tempPercent = percent;
