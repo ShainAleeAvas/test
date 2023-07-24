@@ -19,7 +19,7 @@ import SignUpP2 from "./components/forms/SignUpP2";
 import SignUpP3 from "./components/forms/SignUpP3";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [progress, setProgress] = useState(0);
   const pagePercent = 100 / 3; // 3 is number of pages
   const [inputs, setInputs] = useState({

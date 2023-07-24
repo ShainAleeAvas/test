@@ -33,10 +33,20 @@ export default function StepByStepProgressBar({ steps = 0, percent = 0 }) {
           <View style={{ width: width / steps - 30 }}>
             <View
               style={{
+                position: "absolute",
+                zIndex: 10,
                 backgroundColor: "#60BC6A",
                 borderRadius: 100,
                 height: 4,
                 width: stepValue(i + 1),
+              }}
+            />
+            <View
+              style={{
+                backgroundColor: "#f2f3f5",
+                borderRadius: 100,
+                height: 4,
+                width: fullsection,
               }}
             />
           </View>
@@ -48,12 +58,14 @@ export default function StepByStepProgressBar({ steps = 0, percent = 0 }) {
               borderRadius: 16,
               height: 16,
               width: 16,
-              backgroundColor: "#C8EBCA",
+              backgroundColor:
+                percent >= (100 / steps) * (i + 1) ? "#60BC6A" : "#C8EBCA",
             }}
           >
             <View
               style={{
-                backgroundColor: tempPercent > "#60BC6A",
+                backgroundColor:
+                  percent >= (100 / steps) * (i + 1) ? "#C8EBCA" : "#60BC6A",
                 borderColor: "white",
                 borderWidth: 1,
                 borderRadius: 100,
