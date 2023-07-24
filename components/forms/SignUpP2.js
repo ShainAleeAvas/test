@@ -41,7 +41,7 @@ export default function SignUpP2({ data, setData }) {
     >
       <ScrollView>
         <Text style={{ fontSize: 24, marginTop: 24, fontWeight: "400" }}>
-          Driver
+          Driver License
         </Text>
         <View>
           <CustomTextInput

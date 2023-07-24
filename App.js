@@ -19,40 +19,86 @@ import SignUpP2 from "./components/forms/SignUpP2";
 import SignUpP3 from "./components/forms/SignUpP3";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const width = useWindowDimensions().width;
   const [progress, setProgress] = useState(0);
   const pagePercent = 100 / 3; // 3 is number of pages
+
+  const [scrolling, setScrolling] = useState(false);
 
   const ref = useRef(null);
   const [inputs, setInputs] = useState({
     page1: [
-      { label: "Load your photo", value: "" },
-      { label: "Full name", placeholder: "Enter full name", value: "" },
-      { label: "E-mail", placeholder: "Enter e-mail", value: "" },
-      { label: "Phone number", placeholder: "+960 XXXXXXX", value: "" },
-      { label: "Front picture", value: "" },
-      { label: "Back picture", value: "" },
+      { name: "profilePic", label: "Load your photo", value: "" },
+      {
+        name: "fullname",
+        label: "Full name",
+        placeholder: "Enter full name",
+        value: "",
+      },
+      {
+        name: "email",
+        label: "E-mail",
+        placeholder: "Enter e-mail",
+        value: "",
+      },
+      {
+        name: "phone",
+        label: "Phone number",
+        placeholder: "+960 XXXXXXX",
+        value: "",
+      },
+      { name: "idCardFront", label: "Front picture", value: "" },
+      { name: "idCardBack", label: "Back picture", value: "" },
     ],
     page2: [
       {
+        name: "licenseCardNumber",
         label: "Personal identification number",
         placeholder: "Enter number",
         value: "",
       },
-      { label: "Expiration date", placeholder: "Enter date", value: "" },
-      { label: "Front picture", value: "" },
-      { label: "Back picture", value: "" },
+      {
+        name: "licenseCardExpireDate",
+        label: "Expiration date",
+        placeholder: "Enter date",
+        value: "",
+      },
+      { name: "licenseCardFront", label: "Front picture", value: "" },
+      { name: "licenseCardFront", label: "Back picture", value: "" },
     ],
     page3: [
       {
+        name: "vehiclePhoto",
         label: "Photo of vehicle",
         value: "",
       },
-      { label: "Color", placeholder: "Enter color", value: "" },
-      { label: "Year of issue", placeholder: "Enter date", value: "" },
-      { label: "Model", placeholder: "Enter model", value: "" },
-      { label: "Plate number", placeholder: "Enter plate number", value: "" },
       {
+        name: "vehicleColor",
+        label: "Color",
+        placeholder: "Enter color",
+        value: "",
+      },
+      {
+        name: "vehicleIssuedYear",
+        label: "Year of issue",
+        placeholder: "Enter date",
+        value: "",
+      },
+      {
+        name: "vehicleModel",
+        label: "Model",
+        placeholder: "Enter model",
+        value: "",
+      },
+      {
+        name: "vehiclePlateNo",
+        label: "Plate number",
+        placeholder: "Enter plate number",
+        value: "",
+      },
+      {
+        name: "vehicleMaxOccupancy",
         label: "Maximum number of passengers",
         placeholder: "Enter amount",
         value: "",
@@ -73,61 +119,41 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          paddingHorizontal: 20,
-          zIndex: 1,
-          position: "absolute",
-          top: 40,
-          width: "100%",
-          flex: 1,
-          flexDirection: "column",
-          backgroundColor: "white",
-        }}
-      >
-        <TouchableOpacity
-          style={{
-            backgroundColor: "white",
-            borderRadius: 24.2,
-            textAlign: "center",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 50,
-            height: 50,
-            zIndex: 2,
-            marginBottom: 10,
-
-            shadowOffset: { width: 0, height: 3 },
-            shadowColor: "black",
-            shadowOpacity: 0.4,
-            shadowRadius: 3,
-
-            shadowColor: "black",
-            elevation: 8,
-          }}
-        >
+      <View style={styles.signUpHeader}>
+        <TouchableOpacity style={styles.signUpBackButton}>
           <Ionicons name="arrow-back" size={25} color="black" />
         </TouchableOpacity>
         <StepByStepProgressBar steps={3} percent={progress} />
       </View>
-      <ScrollView horizontal scrollEnabled={true} ref={ref}>
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+        horizontal
+        scrollEnabled={scrolling}
+        ref={ref}
+      >
         <SignUpP1 data={inputs} setData={setInputs} />
         <SignUpP2 data={inputs} setData={setInputs} />
         <SignUpP3 data={inputs} setData={setInputs} />
       </ScrollView>
-
-      <View style={{ width: "100%", height: 76, padding: 12 }}>
-        <TouchableOpacity
+      <TouchableOpacity
+        onPress={() =>
+          progress === pagePercent * currentPage &&
+          (setScrolling(true),
+          ref.current?.scrollTo({ y: width * currentPage + 10 }),
+          setCurrentPage(currentPage + 1),
+          setScrolling(false))
+        }
+      >
+        <Text
           style={{
-            backgroundColor: "#BFC2C9",
-            borderRadius: 20,
-            paddingVertical: 12,
+            ...styles.signUpFooter,
+            backgroundColor:
+              progress === pagePercent * currentPage ? "#60BC65" : "#BFC2C9",
           }}
-          onPress={() => ref.current?.scrollTo({ y: 400 })}
         >
-          <Text style={{ textAlign: "center", color: "white" }}>Next</Text>
-        </TouchableOpacity>
-      </View>
+          Next
+        </Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
@@ -138,5 +164,43 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     marginVertical: 20,
+  },
+  signUpHeader: {
+    flex: 1,
+    paddingHorizontal: 20,
+    zIndex: 1,
+    position: "absolute",
+    top: 40,
+    width: "100%",
+
+    flexDirection: "column",
+    backgroundColor: "white",
+  },
+  signUpFooter: {
+    height: 44,
+    borderRadius: 20,
+    margin: 12,
+    paddingVertical: 12,
+    textAlign: "center",
+    color: "white",
+  },
+  signUpBackButton: {
+    backgroundColor: "white",
+    borderRadius: 24.2,
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 50,
+    height: 50,
+    zIndex: 2,
+    marginBottom: 10,
+
+    shadowOffset: { width: 0, height: 3 },
+    shadowColor: "black",
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+
+    shadowColor: "black",
+    elevation: 8,
   },
 });
