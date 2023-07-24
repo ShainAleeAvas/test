@@ -19,6 +19,19 @@ import SignUpP2 from "./components/forms/SignUpP2";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [progress, setProgress] = useState(0);
+  const pagePercent = 100 / 3; // 3 is number of pages
+  const [inputs, setInputs] = useState({
+    page1: [
+      { label: "Load your photo", value: "" },
+      { label: "Full name", placeholder: "Enter full name", value: "" },
+      { label: "E-mail", placeholder: "Enter e-mail", value: "" },
+      { label: "Phone number", placeholder: "+960 XXXXXXX", value: "" },
+      { label: "Front picture", value: "" },
+      { label: "Back picture", value: "" },
+    ],
+  });
+
   return (
     <View style={styles.container}>
       <View
@@ -59,8 +72,8 @@ export default function App() {
         <StepByStepProgressBar steps={3} />
       </View>
       <ScrollView horizontal scrollEnabled={false}>
-        <SignUpP1/>
-        <SignUpP2/>
+        <SignUpP1 data={inputs} setData={setInputs} />
+        <SignUpP1 data={inputs} setData={setInputs} />
       </ScrollView>
 
       <View style={{ width: "100%", height: 76, padding: 12 }}>
