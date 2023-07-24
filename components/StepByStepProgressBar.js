@@ -42,12 +42,26 @@ export default function StepByStepProgressBar({ steps = 0, percent = 0 }) {
           </View>
           <View
             style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
               borderRadius: 16,
               height: 16,
               width: 16,
               backgroundColor: "#C8EBCA",
             }}
-          />
+          >
+            <View
+              style={{
+                backgroundColor: tempPercent > "#60BC6A",
+                borderColor: "white",
+                borderWidth: 1,
+                borderRadius: 100,
+                height: 10,
+                width: 10,
+              }}
+            />
+          </View>
         </View>
       ))}
     </View>

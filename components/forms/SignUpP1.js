@@ -108,6 +108,7 @@ export default function SignUpP1({ data, setData }) {
           </Text>
         </View>
         <CustomTextInput
+          page="page1"
           index={1}
           data={data}
           setData={setData}
@@ -115,6 +116,7 @@ export default function SignUpP1({ data, setData }) {
           placeholder={data.page1[1].placeholder}
         />
         <CustomTextInput
+          page="page1"
           index={2}
           data={data}
           setData={setData}
@@ -122,6 +124,7 @@ export default function SignUpP1({ data, setData }) {
           placeholder={data.page1[2].placeholder}
         />
         <CustomTextInput
+          page="page1"
           index={3}
           data={data}
           setData={setData}
@@ -142,7 +145,9 @@ export default function SignUpP1({ data, setData }) {
             }}
           >
             <View style={{ height: 124, width: "48.5%" }}>
-              <Text style={{ marginBottom: 2 }}>{data.page1[4].label}</Text>
+              <Text style={{ marginBottom: 2, marginLeft: 16 }}>
+                {data.page1[4].label}
+              </Text>
               <TouchableOpacity
                 style={{
                   flex: 1,
@@ -166,7 +171,9 @@ export default function SignUpP1({ data, setData }) {
               </TouchableOpacity>
             </View>
             <View style={{ height: 124, width: "48.5%" }}>
-              <Text style={{ marginBottom: 2 }}>{data.page1[4].label}</Text>
+              <Text style={{ marginBottom: 2, marginLeft: 16 }}>
+                {data.page1[5].label}
+              </Text>
               <TouchableOpacity
                 style={{
                   flex: 1,

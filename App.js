@@ -16,6 +16,7 @@ import StepByStepProgressBar from "./components/StepByStepProgressBar";
 import { useEffect, useState } from "react";
 import SignUpP1 from "./components/forms/SignUpP1";
 import SignUpP2 from "./components/forms/SignUpP2";
+import SignUpP3 from "./components/forms/SignUpP3";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,12 +31,41 @@ export default function App() {
       { label: "Front picture", value: "" },
       { label: "Back picture", value: "" },
     ],
+    page2: [
+      {
+        label: "Personal identification number",
+        placeholder: "Enter number",
+        value: "",
+      },
+      { label: "Expiration date", placeholder: "Enter date", value: "" },
+      { label: "Front picture", value: "" },
+      { label: "Back picture", value: "" },
+    ],
+    page3: [
+      {
+        label: "Photo of vehicle",
+        value: "",
+      },
+      { label: "Color", placeholder: "Enter color", value: "" },
+      { label: "Year of issue", placeholder: "Enter date", value: "" },
+      { label: "Model", placeholder: "Enter model", value: "" },
+      { label: "Plate number", placeholder: "Enter plate number", value: "" },
+      {
+        label: "Maximum number of passengers",
+        placeholder: "Enter amount",
+        value: "",
+      },
+    ],
   });
 
   useEffect(() => {
     setProgress(
       (pagePercent / inputs.page1.length) *
-        inputs.page1.filter((e) => e.value !== "").length
+        inputs.page1.filter((e) => e.value !== "").length +
+        (pagePercent / inputs.page2.length) *
+          inputs.page2.filter((e) => e.value !== "").length +
+        (pagePercent / inputs.page3.length) *
+          inputs.page3.filter((e) => e.value !== "").length
     );
   }, [inputs]);
 
@@ -78,9 +108,10 @@ export default function App() {
         </TouchableOpacity>
         <StepByStepProgressBar steps={3} percent={progress} />
       </View>
-      <ScrollView horizontal scrollEnabled={false}>
+      <ScrollView horizontal scrollEnabled={true}>
         <SignUpP1 data={inputs} setData={setInputs} />
-        <SignUpP1 data={inputs} setData={setInputs} />
+        <SignUpP2 data={inputs} setData={setInputs} />
+        <SignUpP3 data={inputs} setData={setInputs} />
       </ScrollView>
 
       <View style={{ width: "100%", height: 76, padding: 12 }}>

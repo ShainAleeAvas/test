@@ -7,15 +7,17 @@ export default function CustomTextInput({
   setData,
   index,
   data,
+  page,
+  style,
 }) {
   return (
-    <View style={{ marginBottom: 8, fontSize: 12 }}>
+    <View style={{ marginBottom: 8, fontSize: 12, ...style }}>
       <Text style={{ marginLeft: 16, marginBottom: 2 }}>{label}</Text>
       <TextInput
         onChangeText={(text) =>
           setData({
             ...data,
-            page1: data.page1.map((e, i) =>
+            [page]: data[page].map((e, i) =>
               i === index ? { label: e.label, value: text } : e
             ),
           })

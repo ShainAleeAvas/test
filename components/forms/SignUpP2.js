@@ -1,9 +1,32 @@
-import { ScrollView, Text, View, useWindowDimensions } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
 import CustomTextInput from "../CustomTextInput";
+import * as ImagePicker from "expo-image-picker";
 
-export default function SignUpP2() {
+export default function SignUpP2({ data, setData }) {
   const width = useWindowDimensions().width;
+  const PickImage = async (index) => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: false,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setData({
+        ...data,
+        page2: data.page2.map((e, i) =>
+          i === index ? { label: e.label, value: result.uri } : e
+        ),
+      });
+    }
+  };
 
   return (
     <View
@@ -18,85 +41,99 @@ export default function SignUpP2() {
     >
       <ScrollView>
         <Text style={{ fontSize: 24, marginTop: 24, fontWeight: "400" }}>
-          Profile
+          Driver
         </Text>
-        <Text style={{ fontSize: 14, marginTop: 8 }}>
-          Before you start enter your information
-        </Text>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "space-around",
-            alignItems: "center",
-            marginVertical: 24,
-          }}
-        >
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 90,
-              borderWidth: 1,
-              borderColor: "black",
-              width: 90,
-              height: 90,
-              alignItems: "center",
-              paddingBottom: 10,
-            }}
-          >
-            <FontAwesome5 name="user-alt" size={60} color="black" />
-            {/* <Image style={{ height: "80%", width: "80%" }} /> */}
-          </View>
-          <Text
-            style={{
-              marginTop: 10,
-              fontSize: 14,
-              fontWeight: "400",
-              textAlign: "center",
-            }}
-          >
-            Load your photo
-          </Text>
-        </View>
-        <CustomTextInput label="Full name" placeholder="Enter full name" />
-        <CustomTextInput label="E-mail" placeholder="Enter e-mail" />
-        <CustomTextInput label="Phone number" placeholder="+960 XXXXXXX" />
-        <View style={{ marginVertical: 24 }}>
-          <Text style={{ fontSize: 16, fontWeight: "400", marginBottom: 6 }}>
-            Add ID card information
-          </Text>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-between",
-              flexWrap: "nowrap",
-              alignItems: "center",
-            }}
-          >
-            <View style={{ height: 124, width: "48.5%" }}>
-              <Text style={{ marginBottom: 2 }}>Front picture</Text>
-              <View
-                style={{
-                  borderRadius: 14,
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "#F0F2F5",
-                }}
-              ></View>
-            </View>
-            <View style={{ height: 124, width: "48.5%" }}>
-              <Text style={{ marginBottom: 2 }}>Back picture</Text>
-              <View
-                style={{
-                  borderRadius: 14,
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: "#F0F2F5",
-                }}
-              ></View>
+        <View>
+          <CustomTextInput
+            style={{ marginTop: 24 }}
+            page="page2"
+            index={0}
+            data={data}
+            setData={setData}
+            label={data.page2[0].label}
+            placeholder={data.page2[0].placeholder}
+          />
+          <CustomTextInput
+            page="page2"
+            index={1}
+            data={data}
+            setData={setData}
+            label={data.page2[1].label}
+            placeholder={data.page2[1].placeholder}
+          />
+          <View style={{ marginVertical: 24 }}>
+            <Text style={{ fontSize: 16, fontWeight: "400", marginBottom: 6 }}>
+              Add License photo
+            </Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                justifyContent: "space-between",
+                flexWrap: "nowrap",
+                alignItems: "center",
+              }}
+            >
+              <View style={{ height: 124, width: "48.5%" }}>
+                <Text style={{ marginBottom: 2, marginLeft: 16 }}>
+                  {data.page2[2].label}
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 14,
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "#F0F2F5",
+                  }}
+                  onPress={() => PickImage(2)}
+                >
+                  {data.page2[2].value ? (
+                    <Image
+                      source={{ uri: data.page2[2].value }}
+                      style={{
+                        borderRadius: 14,
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
+                  ) : (
+                    <Feather name="camera" size={32} color="#BFC2C9" />
+                  )}
+                </TouchableOpacity>
+              </View>
+              <View style={{ height: 124, width: "48.5%" }}>
+                <Text style={{ marginBottom: 2, marginLeft: 16 }}>
+                  {data.page2[3].label}
+                </Text>
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 14,
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "#F0F2F5",
+                  }}
+                  onPress={() => PickImage(3)}
+                >
+                  {data.page2[3].value ? (
+                    <Image
+                      source={{ uri: data.page2[3].value }}
+                      style={{
+                        borderRadius: 14,
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
+                  ) : (
+                    <Feather name="camera" size={32} color="#BFC2C9" />
+                  )}
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
