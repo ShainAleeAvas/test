@@ -20,12 +20,12 @@ import OrderType from "./components/forms/OrderType";
 import { Link } from "expo-router";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState(4); //default 4
+  const [currentPage, setCurrentPage] = useState(1); //default 1
   const width = useWindowDimensions().width;
-  const [progress, setProgress] = useState(100); //default 0
+  const [progress, setProgress] = useState(0); //default 0
   const pagePercent = 100 / 3; // 3 is number of pages
 
-  const [scrolling, setScrolling] = useState(true); //default false
+  const [scrolling, setScrolling] = useState(false); //default false
 
   const ref = useRef(null);
   const [inputs, setInputs] = useState({
@@ -125,14 +125,14 @@ export default function App() {
   });
 
   useEffect(() => {
-    // setProgress(
-    //   (pagePercent / inputs.page1.length) *
-    //     inputs.page1.filter((e) => e.value !== "").length +
-    //     (pagePercent / inputs.page2.length) *
-    //       inputs.page2.filter((e) => e.value !== "").length +
-    //     (pagePercent / inputs.page3.length) *
-    //       inputs.page3.filter((e) => e.value !== "").length
-    // );
+    setProgress(
+      (pagePercent / inputs.page1.length) *
+        inputs.page1.filter((e) => e.value !== "").length +
+        (pagePercent / inputs.page2.length) *
+          inputs.page2.filter((e) => e.value !== "").length +
+        (pagePercent / inputs.page3.length) *
+          inputs.page3.filter((e) => e.value !== "").length
+    );
   }, [inputs]);
 
   return (
