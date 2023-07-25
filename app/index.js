@@ -10,8 +10,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import { Ionicons, Entypo, FontAwesome5 } from "@expo/vector-icons";
-import CustomTextInput from "./components/CustomTextInput";
+import { Ionicons } from "@expo/vector-icons";
 import StepByStepProgressBar from "./components/StepByStepProgressBar";
 import { useEffect, useRef, useState } from "react";
 import SignUpP1 from "./components/forms/SignUpP1";
