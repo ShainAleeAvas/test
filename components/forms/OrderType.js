@@ -12,7 +12,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import RadioButton from "../CustomInputs/RadioButton";
 
-export default function OrderType() {
+export default function OrderType({ data, setData }) {
   const width = useWindowDimensions().width;
   return (
     <View
@@ -21,7 +21,7 @@ export default function OrderType() {
         marginTop: 75,
         paddingLeft: 20,
         paddingRight: 25,
-        width: width-5,
+        width: width - 5,
       }}
     >
       <ScrollView>
@@ -29,12 +29,40 @@ export default function OrderType() {
           Choose your order's type
         </Text>
         <View style={{ marginTop: 45 }}>
-          <TouchableOpacity
-            style={{ flex: 1, flexDirection: "row", justifyContent:"space-between", backgroundColor: "yellow" }}
-          >
-            <Text style={{fontSize:14}}>Taxi</Text>
-            <RadioButton />
-          </TouchableOpacity>
+          {data.orderType.map((e, i) => (
+            <View key={"OrderType" + i}>
+              <TouchableOpacity
+                onPress={() =>
+                  setData({
+                    ...data,
+                    orderType: data.orderType.map((e, index) =>
+                      i === index
+                        ? { ...e, value: e.value === "" ? e.label : "" }
+                        : e
+                    ),
+                  })
+                }
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingVertical: 16,
+                  borderBottomWidth: 2,
+                  borderColor: "#F0F2F5",
+                }}
+              >
+                <Text style={{ fontSize: 14 }}>{e.label}</Text>
+                <RadioButton
+                  label={e.label}
+                  index={i}
+                  data={data}
+                  setData={setData}
+                  color="#F0F2F5"
+                  selectedColor="#60BC65"
+                />
+              </TouchableOpacity>
+            </View>
+          ))}
         </View>
       </ScrollView>
     </View>

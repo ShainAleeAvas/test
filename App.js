@@ -20,12 +20,12 @@ import SignUpP3 from "./components/forms/SignUpP3";
 import OrderType from "./components/forms/OrderType";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(4); //default 4
   const width = useWindowDimensions().width;
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(100); //default 0
   const pagePercent = 100 / 3; // 3 is number of pages
 
-  const [scrolling, setScrolling] = useState(false);
+  const [scrolling, setScrolling] = useState(true); //default false
 
   const ref = useRef(null);
   const [inputs, setInputs] = useState({
@@ -105,17 +105,34 @@ export default function App() {
         value: "",
       },
     ],
+    orderType: [
+      {
+        name: "taxi",
+        label: "Taxi",
+        value: "",
+      },
+      {
+        name: "foodDelivery",
+        label: "Food delivery",
+        value: "",
+      },
+      {
+        name: "packageDelivery",
+        label: "Package delivery",
+        value: "",
+      },
+    ],
   });
 
   useEffect(() => {
-    setProgress(
-      (pagePercent / inputs.page1.length) *
-        inputs.page1.filter((e) => e.value !== "").length +
-        (pagePercent / inputs.page2.length) *
-          inputs.page2.filter((e) => e.value !== "").length +
-        (pagePercent / inputs.page3.length) *
-          inputs.page3.filter((e) => e.value !== "").length
-    );
+    // setProgress(
+    //   (pagePercent / inputs.page1.length) *
+    //     inputs.page1.filter((e) => e.value !== "").length +
+    //     (pagePercent / inputs.page2.length) *
+    //       inputs.page2.filter((e) => e.value !== "").length +
+    //     (pagePercent / inputs.page3.length) *
+    //       inputs.page3.filter((e) => e.value !== "").length
+    // );
   }, [inputs]);
 
   return (
