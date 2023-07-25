@@ -17,6 +17,7 @@ import SignUpP1 from "./components/forms/SignUpP1";
 import SignUpP2 from "./components/forms/SignUpP2";
 import SignUpP3 from "./components/forms/SignUpP3";
 import OrderType from "./components/forms/OrderType";
+import { Link } from "expo-router";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(4); //default 4
@@ -177,15 +178,33 @@ export default function App() {
           setScrolling(false))
         }
       >
-        <Text
-          style={{
-            ...styles.signUpFooter,
-            backgroundColor:
-              progress >= pagePercent * currentPage ? "#60BC65" : "#BFC2C9",
-          }}
-        >
-          Next
-        </Text>
+        {currentPage === 4 ? (
+          <Link
+            style={{
+              ...styles.signUpFooter,
+              backgroundColor:
+                inputs.orderType.filter((e) => e.value !== "").length > 0
+                  ? "#60BC65"
+                  : "#BFC2C9",
+            }}
+            href={{
+              pathname: "/signUpPending",
+              params: { email: inputs.page1[2].value },
+            }}
+          >
+            <Text>Next</Text>
+          </Link>
+        ) : (
+          <Text
+            style={{
+              ...styles.signUpFooter,
+              backgroundColor:
+                progress >= pagePercent * currentPage ? "#60BC65" : "#BFC2C9",
+            }}
+          >
+            Next
+          </Text>
+        )}
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
