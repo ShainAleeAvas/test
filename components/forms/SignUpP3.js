@@ -82,6 +82,7 @@ export default function SignUpP3({ data, setData }) {
             }}
           >
             <CustomTextInput
+              page="page3"
               style={{ width: "49%" }}
               index={1}
               data={data}
@@ -90,6 +91,7 @@ export default function SignUpP3({ data, setData }) {
               placeholder={data.page3[1].placeholder}
             />
             <CustomTextInput
+              page="page3"
               style={{ width: "48%" }}
               index={2}
               data={data}
@@ -99,6 +101,7 @@ export default function SignUpP3({ data, setData }) {
             />
           </View>
           <CustomTextInput
+            page="page3"
             index={3}
             data={data}
             setData={setData}
@@ -106,6 +109,7 @@ export default function SignUpP3({ data, setData }) {
             placeholder={data.page3[3].placeholder}
           />
           <CustomTextInput
+            page="page3"
             index={4}
             data={data}
             setData={setData}
@@ -113,6 +117,7 @@ export default function SignUpP3({ data, setData }) {
             placeholder={data.page3[4].placeholder}
           />
           <CustomTextInput
+            page="page3"
             index={5}
             data={data}
             setData={setData}

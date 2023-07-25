@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import SignUpP1 from "./components/forms/SignUpP1";
 import SignUpP2 from "./components/forms/SignUpP2";
 import SignUpP3 from "./components/forms/SignUpP3";
+import OrderType from "./components/forms/OrderType";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -120,10 +121,25 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.signUpHeader}>
-        <TouchableOpacity style={styles.signUpBackButton}>
+        <TouchableOpacity
+          style={styles.signUpBackButton}
+          onPress={
+            () =>
+              currentPage !== 1 &&
+              (setCurrentPage(currentPage - 1),
+              setScrolling(true),
+              ref.current?.scrollTo({
+                x: width * (currentPage - 1) - width,
+              }),
+              setScrolling(false))
+            //
+          }
+        >
           <Ionicons name="arrow-back" size={25} color="black" />
         </TouchableOpacity>
-        <StepByStepProgressBar steps={3} percent={progress} />
+        {currentPage !== 4 && (
+          <StepByStepProgressBar steps={3} percent={progress} />
+        )}
       </View>
       <ScrollView
         showsHorizontalScrollIndicator={false}
@@ -134,12 +150,13 @@ export default function App() {
         <SignUpP1 data={inputs} setData={setInputs} />
         <SignUpP2 data={inputs} setData={setInputs} />
         <SignUpP3 data={inputs} setData={setInputs} />
+        <OrderType data={inputs} setData={setInputs} />
       </ScrollView>
       <TouchableOpacity
         onPress={() =>
-          progress === pagePercent * currentPage &&
+          progress >= pagePercent * currentPage &&
           (setScrolling(true),
-          ref.current?.scrollTo({ y: width * currentPage + 10 }),
+          ref.current?.scrollTo({ x: width * currentPage + 10 }),
           setCurrentPage(currentPage + 1),
           setScrolling(false))
         }
@@ -148,7 +165,7 @@ export default function App() {
           style={{
             ...styles.signUpFooter,
             backgroundColor:
-              progress === pagePercent * currentPage ? "#60BC65" : "#BFC2C9",
+              progress >= pagePercent * currentPage ? "#60BC65" : "#BFC2C9",
           }}
         >
           Next
