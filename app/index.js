@@ -30,7 +30,12 @@ export default function App() {
   const ref = useRef(null);
   const [inputs, setInputs] = useState({
     page1: [
-      { name: "profilePic", label: "Load your photo", value: "" },
+      {
+        name: "profilePic",
+        label: "Load your photo",
+        value: "",
+        validated: true,
+      },
       {
         name: "fullname",
         label: "Full name",

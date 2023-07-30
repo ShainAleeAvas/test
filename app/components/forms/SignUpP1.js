@@ -113,6 +113,7 @@ export default function SignUpP1({ data, setData }) {
           data={data}
           setData={setData}
           label={data.page1[1].label}
+          validated={data.page1[1].validated}
           placeholder={data.page1[1].placeholder}
         />
         <CustomTextInput
